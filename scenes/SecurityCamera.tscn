@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://camera0001"]
+
+[ext_resource type="Script" path="res://scripts/SecurityCamera.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/camera.png" id="2_camera"]
+[ext_resource type="Texture2D" path="res://assets/light_cone.png" id="3_cone"]
+[ext_resource type="Texture2D" path="res://assets/alert_question.png" id="4_alert"]
+[ext_resource type="AudioStream" path="res://assets/audio/camera_detect.wav" id="5_detect"]
+[ext_resource type="AudioStream" path="res://assets/audio/alarm_siren.wav" id="6_alarm"]
+[ext_resource type="AudioStream" path="res://assets/audio/spark_disable.wav" id="7_spark"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 24.0
+
+[node name="SecurityCamera" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Head" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Head"]
+texture = ExtResource("2_camera")
+offset = Vector2(4, 0)
+
+[node name="LightCone" type="PointLight2D" parent="Head"]
+position = Vector2(16, 0)
+color = Color(1, 0.88, 0.35, 0.8)
+energy = 1.5
+shadow_filter = 0
+texture = ExtResource("3_cone")
+offset = Vector2(115, 0)
+texture_scale = 1.0
+
+[node name="RayCast2D" type="RayCast2D" parent="Head"]
+target_position = Vector2(240, 0)
+collision_mask = 3
+
+[node name="AlertSprite" type="Sprite2D" parent="Head"]
+visible = false
+position = Vector2(0, -22)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("4_alert")
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+shape = SubResource("CircleShape2D_1")
+
+[node name="AudioDetect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_detect")
+volume_db = 2.0
+
+[node name="AudioAlarm" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_alarm")
+volume_db = 4.0
+
+[node name="AudioSpark" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_spark")
+volume_db = 3.0
+
+[node name="DisabledLabel" type="Label" parent="."]
+visible = false
+offset_left = -45.0
+offset_top = -32.0
+offset_right = 45.0
+offset_bottom = -16.0
+theme_override_colors/font_color = Color(0.4, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "OFFLINE"
+horizontal_alignment = 1
+
+[connection signal="area_entered" from="HitArea" to="." method="_on_hit_area_area_entered"]
+[connection signal="body_entered" from="HitArea" to="." method="_on_hit_area_body_entered"]

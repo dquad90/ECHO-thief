@@ -1,0 +1,851 @@
+[gd_scene load_steps=19 format=3 uid="uid://mainmenu001"]
+
+[ext_resource type="Script" path="res://scripts/MainMenu.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/menu_bg.png" id="2_menubg"]
+[ext_resource type="Texture2D" path="res://assets/thief_emblem.png" id="3_emblem"]
+[ext_resource type="AudioStream" path="res://assets/audio/click.wav" id="4_click"]
+[ext_resource type="AudioStream" path="res://assets/audio/music_stealth.wav" id="5_music"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_Title"]
+font_size = 46
+font_color = Color(0.2, 0.92, 1, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 16
+shadow_color = Color(0, 0.8, 1, 0.4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_Subtitle"]
+font_size = 14
+font_color = Color(0.65, 0.85, 1, 0.85)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_Cash"]
+font_size = 16
+font_color = Color(1, 0.85, 0.3, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_Diff"]
+font_size = 13
+font_color = Color(0.7, 0.9, 1, 0.9)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_PanelTitle"]
+font_size = 24
+font_color = Color(0.25, 0.9, 1, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_PanelSub"]
+font_size = 14
+font_color = Color(0.75, 0.85, 0.95, 0.75)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_TopBadge"]
+bg_color = Color(0.04, 0.08, 0.12, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.8, 0.25, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_DiffBadge"]
+bg_color = Color(0.04, 0.08, 0.12, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.65, 0.9, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_BtnHeroNormal"]
+bg_color = Color(0.08, 0.24, 0.36, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.92, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_left = 10
+corner_radius_bottom_right = 10
+shadow_color = Color(0, 0.85, 1, 0.35)
+shadow_size = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_BtnHeroHover"]
+bg_color = Color(0.12, 0.34, 0.48, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_left = 10
+corner_radius_bottom_right = 10
+shadow_color = Color(0, 0.95, 1, 0.55)
+shadow_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_BtnNormal"]
+bg_color = Color(0.05, 0.09, 0.14, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.22, 0.45, 0.68, 0.75)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_BtnHover"]
+bg_color = Color(0.09, 0.18, 0.28, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.9, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+shadow_color = Color(0, 0.75, 1, 0.35)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_PanelModal"]
+bg_color = Color(0.04, 0.07, 0.11, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.88, 1, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_left = 14
+corner_radius_bottom_right = 14
+shadow_color = Color(0, 0.65, 0.95, 0.3)
+shadow_size = 24
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_menubg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="PulseBackground" type="Node2D" parent="."]
+
+[node name="TopBar" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = 16.0
+offset_right = -32.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="TagChip" type="Label" parent="TopBar"]
+layout_mode = 2
+text = "[ CLASSIFIED HEIST OPERATIONS ]"
+label_settings = SubResource("LabelSettings_Subtitle")
+
+[node name="Spacer" type="Control" parent="TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightBox" type="HBoxContainer" parent="TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="DiffPanel" type="PanelContainer" parent="TopBar/RightBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_DiffBadge")
+
+[node name="Margin" type="MarginContainer" parent="TopBar/RightBox/DiffPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 6
+
+[node name="DiffBadge" type="Label" parent="TopBar/RightBox/DiffPanel/Margin"]
+layout_mode = 2
+text = "[ ROOKIE (NORMAL) ]"
+label_settings = SubResource("LabelSettings_Diff")
+
+[node name="CashPanel" type="PanelContainer" parent="TopBar/RightBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_TopBadge")
+
+[node name="Margin" type="MarginContainer" parent="TopBar/RightBox/CashPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 6
+
+[node name="CashLabel" type="Label" parent="TopBar/RightBox/CashPanel/Margin"]
+layout_mode = 2
+text = "VAULT: $2,500"
+label_settings = SubResource("LabelSettings_Cash")
+
+[node name="MainHomeView" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -280.0
+offset_right = 210.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="HeaderBox" type="VBoxContainer" parent="MainHomeView"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Emblem" type="TextureRect" parent="MainHomeView/HeaderBox"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_emblem")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="MainHomeView/HeaderBox"]
+layout_mode = 2
+text = "E C H O - T H I E F"
+label_settings = SubResource("LabelSettings_Title")
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="MainHomeView/HeaderBox"]
+layout_mode = 2
+text = "• TACTICAL AUDIO STEALTH • SIGHT BY SOUND •"
+label_settings = SubResource("LabelSettings_Subtitle")
+horizontal_alignment = 1
+
+[node name="MenuStack" type="VBoxContainer" parent="MainHomeView"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="MainHomeView/MenuStack"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBox_BtnHeroNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHeroHover")
+theme_override_styles/pressed = SubResource("StyleBox_BtnHeroHover")
+text = "▶   START HEIST"
+
+[node name="LevelsButton" type="Button" parent="MainHomeView/MenuStack"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+theme_override_styles/pressed = SubResource("StyleBox_BtnHover")
+text = "⚑   SELECT MISSION"
+
+[node name="MarketButton" type="Button" parent="MainHomeView/MenuStack"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+theme_override_styles/pressed = SubResource("StyleBox_BtnHover")
+text = "🛒   BLACK MARKET (UPGRADES)"
+
+[node name="DiffButton" type="Button" parent="MainHomeView/MenuStack"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+theme_override_styles/pressed = SubResource("StyleBox_BtnHover")
+text = "⚙   DIFFICULTY: ROOKIE"
+
+[node name="HelpButton" type="Button" parent="MainHomeView/MenuStack"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+theme_override_styles/pressed = SubResource("StyleBox_BtnHover")
+text = "📖   HOW TO PLAY"
+
+[node name="LevelSelectView" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="LevelSelectView"]
+custom_minimum_size = Vector2(660, 520)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.0
+offset_top = -260.0
+offset_right = 330.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_PanelModal")
+
+[node name="Margin" type="MarginContainer" parent="LevelSelectView/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 18
+
+[node name="VBox" type="VBoxContainer" parent="LevelSelectView/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="LevelSelectView/Panel/Margin/VBox"]
+layout_mode = 2
+text = "SELECT MISSION"
+label_settings = SubResource("LabelSettings_PanelTitle")
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="LevelSelectView/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Infiltrate deeper estates to steal legendary artifacts"
+label_settings = SubResource("LabelSettings_PanelSub")
+horizontal_alignment = 1
+
+[node name="Sep" type="HSeparator" parent="LevelSelectView/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LevelSelectView/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 330)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 1
+
+[node name="LevelButtons" type="VBoxContainer" parent="LevelSelectView/Panel/Margin/VBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Level1Button" type="Button" parent="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "1. THE GALLERY FOYER ($2,000)"
+
+[node name="Level2Button" type="Button" parent="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "2. LORD VANCE'S ESTATE ($3,500)"
+
+[node name="Level3Button" type="Button" parent="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "3. THE ROYAL TREASURY ($6,000)"
+
+[node name="Level4Button" type="Button" parent="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "4. THE SKY PENTHOUSE ($10,000)"
+
+[node name="Level5Button" type="Button" parent="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "5. THE SOVEREIGN BANK ($15,000)"
+
+[node name="Level6Button" type="Button" parent="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "6. THE TECH EMBASSY ($22,000)"
+
+[node name="Level7Button" type="Button" parent="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "7. THE SYNDICATE BIO-LAB ($30,000)"
+
+[node name="Level8Button" type="Button" parent="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "8. THE CROWN JEWELS ARMORY ($42,000)"
+
+[node name="Level9Button" type="Button" parent="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "9. THE GRAND ROYAL MUSEUM ($58,000)"
+
+[node name="Level10Button" type="Button" parent="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "10. THE CITADEL VAULT ($80,000)"
+
+[node name="BackButton" type="Button" parent="LevelSelectView/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "◀   BACK TO MAIN MENU"
+
+[node name="MarketView" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="MarketView"]
+custom_minimum_size = Vector2(680, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -250.0
+offset_right = 340.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_PanelModal")
+
+[node name="Margin" type="MarginContainer" parent="MarketView/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 22
+
+[node name="VBox" type="VBoxContainer" parent="MarketView/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="MarketView/Panel/Margin/VBox"]
+layout_mode = 2
+text = "BLACK MARKET SAFEhouse"
+label_settings = SubResource("LabelSettings_PanelTitle")
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="MarketView/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Purchase permanent tactical equipment with vault funds"
+label_settings = SubResource("LabelSettings_PanelSub")
+horizontal_alignment = 1
+
+[node name="Sep" type="HSeparator" parent="MarketView/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="ItemsBox" type="VBoxContainer" parent="MarketView/Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="ShoesRow" type="HBoxContainer" parent="MarketView/Panel/Margin/VBox/ItemsBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Desc" type="Label" parent="MarketView/Panel/Margin/VBox/ItemsBox/ShoesRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "👟 Rubber-Soled Boots ($1,000)
+Reduces footstep noise by 40% across all floor types."
+
+[node name="BuyShoesBtn" type="Button" parent="MarketView/Panel/Margin/VBox/ItemsBox/ShoesRow"]
+custom_minimum_size = Vector2(170, 46)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "BUY ($1,000)"
+
+[node name="GogglesRow" type="HBoxContainer" parent="MarketView/Panel/Margin/VBox/ItemsBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Desc" type="Label" parent="MarketView/Panel/Margin/VBox/ItemsBox/GogglesRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "🥽 Echo-Goggles HUD ($1,500)
+Extends sonar pulse persistence by +1.5s in the dark."
+
+[node name="BuyGogglesBtn" type="Button" parent="MarketView/Panel/Margin/VBox/ItemsBox/GogglesRow"]
+custom_minimum_size = Vector2(170, 46)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "BUY ($1,500)"
+
+[node name="DecoyRow" type="HBoxContainer" parent="MarketView/Panel/Margin/VBox/ItemsBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Desc" type="Label" parent="MarketView/Panel/Margin/VBox/ItemsBox/DecoyRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "⏰ Wind-Up Decoy Device ($2,000)
+Deployable clockwork chirper that lures sentries away."
+
+[node name="BuyDecoyBtn" type="Button" parent="MarketView/Panel/Margin/VBox/ItemsBox/DecoyRow"]
+custom_minimum_size = Vector2(170, 46)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "BUY ($2,000)"
+
+[node name="BackButton" type="Button" parent="MarketView/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "◀   BACK TO MAIN MENU"
+
+[node name="DifficultyView" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="DifficultyView"]
+custom_minimum_size = Vector2(620, 480)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -310.0
+offset_top = -240.0
+offset_right = 310.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_PanelModal")
+
+[node name="Margin" type="MarginContainer" parent="DifficultyView/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 22
+
+[node name="VBox" type="VBoxContainer" parent="DifficultyView/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="DifficultyView/Panel/Margin/VBox"]
+layout_mode = 2
+text = "SELECT DIFFICULTY"
+label_settings = SubResource("LabelSettings_PanelTitle")
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="DifficultyView/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Higher risk provides greater heist bounties"
+label_settings = SubResource("LabelSettings_PanelSub")
+horizontal_alignment = 1
+
+[node name="Sep" type="HSeparator" parent="DifficultyView/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="DiffButtons" type="VBoxContainer" parent="DifficultyView/Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="NormalBtn" type="Button" parent="DifficultyView/Panel/Margin/VBox/DiffButtons"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "○ ROOKIE (NORMAL)  [ 1.0x Payout ]"
+
+[node name="HardBtn" type="Button" parent="DifficultyView/Panel/Margin/VBox/DiffButtons"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "○ VETERAN (HARD)  [ +50% Cash Bonus ]"
+
+[node name="NightmareBtn" type="Button" parent="DifficultyView/Panel/Margin/VBox/DiffButtons"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "○ MASTER PHANTOM  [ Double Cash (2.0x) ]"
+
+[node name="BackButton" type="Button" parent="DifficultyView/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "◀   BACK TO MAIN MENU"
+
+[node name="HowToPlayView" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="HowToPlayView"]
+custom_minimum_size = Vector2(740, 560)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -370.0
+offset_top = -280.0
+offset_right = 370.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_PanelModal")
+
+[node name="Margin" type="MarginContainer" parent="HowToPlayView/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 22
+
+[node name="VBox" type="VBoxContainer" parent="HowToPlayView/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="HowToPlayView/Panel/Margin/VBox"]
+layout_mode = 2
+text = "FIELD THIEF MANUAL"
+label_settings = SubResource("LabelSettings_PanelTitle")
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="HowToPlayView/Panel/Margin/VBox"]
+layout_mode = 2
+text = "Essential tactical guidelines for acoustic infiltration"
+label_settings = SubResource("LabelSettings_PanelSub")
+horizontal_alignment = 1
+
+[node name="Sep" type="HSeparator" parent="HowToPlayView/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="RulesList" type="VBoxContainer" parent="HowToPlayView/Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Rule1" type="Label" parent="HowToPlayView/Panel/Margin/VBox/RulesList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "🔊 SIGHT BY SOUND: Every step emits sound ripples that illuminate walls and guards in pitch-black darkness."
+autowrap_mode = 2
+
+[node name="Rule2" type="Label" parent="HowToPlayView/Panel/Margin/VBox/RulesList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "👟 SILENT SNEAK: Press Shift / C or tap mobile SNEAK to creep silently and muffle your footsteps."
+autowrap_mode = 2
+
+[node name="Rule3" type="Label" parent="HowToPlayView/Panel/Margin/VBox/RulesList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "🗺 SURFACES: Carpets absorb noise. Glass shatters and sends loud alarms across the wing!"
+autowrap_mode = 2
+
+[node name="Rule4" type="Label" parent="HowToPlayView/Panel/Margin/VBox/RulesList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "🚪 WARDROBE HIDING: Duck into mahogany wardrobes (F, Space, or HIDE button) to disappear from guard sight."
+autowrap_mode = 2
+
+[node name="Rule5" type="Label" parent="HowToPlayView/Panel/Margin/VBox/RulesList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "🎯 DISTRACTIONS: Tap screen or click to throw pebbles and lure guards away from vault gates."
+autowrap_mode = 2
+
+[node name="Rule6" type="Label" parent="HowToPlayView/Panel/Margin/VBox/RulesList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "📹 SECURITY CAMERAS: Sweeping CCTV cones build up alert if you linger in sight. Hit with a pebble to short-circuit offline!"
+autowrap_mode = 2
+
+[node name="Rule7" type="Label" parent="HowToPlayView/Panel/Margin/VBox/RulesList"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "⚡ LASER TRIPWIRES: Pulsing security beams cycle on a timer. Dash when inactive, or toss a pebble to disable!"
+autowrap_mode = 2
+
+[node name="BackButton" type="Button" parent="HowToPlayView/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBox_BtnNormal")
+theme_override_styles/hover = SubResource("StyleBox_BtnHover")
+text = "◀   BACK TO MAIN MENU"
+
+[node name="ClickSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_click")
+volume_db = -2.0
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_music")
+volume_db = -8.0
+
+[connection signal="pressed" from="MainHomeView/MenuStack/PlayButton" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MainHomeView/MenuStack/LevelsButton" to="." method="_on_levels_pressed"]
+[connection signal="pressed" from="MainHomeView/MenuStack/MarketButton" to="." method="_on_market_pressed"]
+[connection signal="pressed" from="MainHomeView/MenuStack/DiffButton" to="." method="_on_diff_pressed"]
+[connection signal="pressed" from="MainHomeView/MenuStack/HelpButton" to="." method="_on_help_pressed"]
+
+[connection signal="pressed" from="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons/Level1Button" to="." method="_on_select_level" binds= [1]]
+[connection signal="pressed" from="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons/Level2Button" to="." method="_on_select_level" binds= [2]]
+[connection signal="pressed" from="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons/Level3Button" to="." method="_on_select_level" binds= [3]]
+[connection signal="pressed" from="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons/Level4Button" to="." method="_on_select_level" binds= [4]]
+[connection signal="pressed" from="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons/Level5Button" to="." method="_on_select_level" binds= [5]]
+[connection signal="pressed" from="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons/Level6Button" to="." method="_on_select_level" binds= [6]]
+[connection signal="pressed" from="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons/Level7Button" to="." method="_on_select_level" binds= [7]]
+[connection signal="pressed" from="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons/Level8Button" to="." method="_on_select_level" binds= [8]]
+[connection signal="pressed" from="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons/Level9Button" to="." method="_on_select_level" binds= [9]]
+[connection signal="pressed" from="LevelSelectView/Panel/Margin/VBox/ScrollContainer/LevelButtons/Level10Button" to="." method="_on_select_level" binds= [10]]
+[connection signal="pressed" from="LevelSelectView/Panel/Margin/VBox/BackButton" to="." method="_on_back_pressed"]
+
+[connection signal="pressed" from="MarketView/Panel/Margin/VBox/ItemsBox/ShoesRow/BuyShoesBtn" to="." method="_on_buy_shoes_pressed"]
+[connection signal="pressed" from="MarketView/Panel/Margin/VBox/ItemsBox/GogglesRow/BuyGogglesBtn" to="." method="_on_buy_goggles_pressed"]
+[connection signal="pressed" from="MarketView/Panel/Margin/VBox/ItemsBox/DecoyRow/BuyDecoyBtn" to="." method="_on_buy_decoy_pressed"]
+[connection signal="pressed" from="MarketView/Panel/Margin/VBox/BackButton" to="." method="_on_back_pressed"]
+
+[connection signal="pressed" from="DifficultyView/Panel/Margin/VBox/DiffButtons/NormalBtn" to="." method="_on_select_difficulty" binds= ["normal"]]
+[connection signal="pressed" from="DifficultyView/Panel/Margin/VBox/DiffButtons/HardBtn" to="." method="_on_select_difficulty" binds= ["hard"]]
+[connection signal="pressed" from="DifficultyView/Panel/Margin/VBox/DiffButtons/NightmareBtn" to="." method="_on_select_difficulty" binds= ["nightmare"]]
+[connection signal="pressed" from="DifficultyView/Panel/Margin/VBox/BackButton" to="." method="_on_back_pressed"]
+
+[connection signal="pressed" from="HowToPlayView/Panel/Margin/VBox/BackButton" to="." method="_on_back_pressed"]

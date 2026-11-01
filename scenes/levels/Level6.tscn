@@ -1,0 +1,198 @@
+[gd_scene load_steps=18 format=3 uid="uid://level6_001"]
+
+[ext_resource type="Script" path="res://scripts/MainGame.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/floor.png" id="2_floor"]
+[ext_resource type="PackedScene" path="res://scenes/Wall.tscn" id="3_wall"]
+[ext_resource type="PackedScene" path="res://scenes/FloorModifier.tscn" id="4_floormod"]
+[ext_resource type="Texture2D" path="res://assets/carpet.png" id="5_carpet"]
+[ext_resource type="Texture2D" path="res://assets/glass_debris.png" id="6_glass"]
+[ext_resource type="PackedScene" path="res://scenes/Artifact.tscn" id="7_artifact"]
+[ext_resource type="PackedScene" path="res://scenes/EscapeZone.tscn" id="8_escape"]
+[ext_resource type="PackedScene" path="res://scenes/Guard.tscn" id="9_guard"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="10_player"]
+[ext_resource type="PackedScene" path="res://scenes/HUD.tscn" id="11_hud"]
+[ext_resource type="PackedScene" path="res://scenes/VirtualJoystick.tscn" id="12_vjoy"]
+[ext_resource type="PackedScene" path="res://scenes/HidingSpot.tscn" id="13_hiding"]
+[ext_resource type="PackedScene" path="res://scenes/LaserTripwire.tscn" id="14_laser"]
+
+[sub_resource type="RectangleShape2D" id="Rect_CarpetEmbassy"]
+size = Vector2(120, 360)
+
+[sub_resource type="RectangleShape2D" id="Rect_GlassAtrium"]
+size = Vector2(160, 90)
+
+[sub_resource type="RectangleShape2D" id="Rect_GlassPerimeter"]
+size = Vector2(90, 160)
+
+[node name="Level6" type="Node2D"]
+script = ExtResource("1_script")
+level_number = 6
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.24, 0.26, 0.36, 1)
+
+[node name="FloorBackground" type="NinePatchRect" parent="."]
+offset_left = -1100.0
+offset_top = -900.0
+offset_right = 1100.0
+offset_bottom = 900.0
+mouse_filter = 2
+texture = ExtResource("2_floor")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Floors" type="Node2D" parent="."]
+
+[node name="CarpetEmbassy" parent="Floors" instance=ExtResource("4_floormod")]
+position = Vector2(0, 180)
+floor_type = "carpet"
+
+[node name="Sprite2D" parent="Floors/CarpetEmbassy" index="0"]
+texture = ExtResource("5_carpet")
+region_enabled = true
+region_rect = Rect2(0, 0, 120, 360)
+
+[node name="CollisionShape2D" parent="Floors/CarpetEmbassy" index="1"]
+shape = SubResource("Rect_CarpetEmbassy")
+
+[node name="GlassAtrium" parent="Floors" instance=ExtResource("4_floormod")]
+position = Vector2(0, -100)
+floor_type = "glass"
+
+[node name="Sprite2D" parent="Floors/GlassAtrium" index="0"]
+texture = ExtResource("6_glass")
+region_enabled = true
+region_rect = Rect2(0, 0, 160, 90)
+
+[node name="CollisionShape2D" parent="Floors/GlassAtrium" index="1"]
+shape = SubResource("Rect_GlassAtrium")
+
+[node name="GlassWestWing" parent="Floors" instance=ExtResource("4_floormod")]
+position = Vector2(-320, 20)
+floor_type = "glass"
+
+[node name="Sprite2D" parent="Floors/GlassWestWing" index="0"]
+texture = ExtResource("6_glass")
+region_enabled = true
+region_rect = Rect2(0, 0, 90, 160)
+
+[node name="CollisionShape2D" parent="Floors/GlassWestWing" index="1"]
+shape = SubResource("Rect_GlassPerimeter")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="OuterNorth" parent="Walls" instance=ExtResource("3_wall")]
+position = Vector2(0, -580)
+size = Vector2(1060, 40)
+
+[node name="OuterSouth" parent="Walls" instance=ExtResource("3_wall")]
+position = Vector2(0, 580)
+size = Vector2(1060, 40)
+
+[node name="OuterWest" parent="Walls" instance=ExtResource("3_wall")]
+position = Vector2(-530, 0)
+size = Vector2(40, 1160)
+
+[node name="OuterEast" parent="Walls" instance=ExtResource("3_wall")]
+position = Vector2(530, 0)
+size = Vector2(40, 1160)
+
+[node name="CorridorDividerWest" parent="Walls" instance=ExtResource("3_wall")]
+position = Vector2(-220, 180)
+size = Vector2(40, 280)
+
+[node name="CorridorDividerEast" parent="Walls" instance=ExtResource("3_wall")]
+position = Vector2(220, 180)
+size = Vector2(40, 280)
+
+[node name="ArchiveNorthLeft" parent="Walls" instance=ExtResource("3_wall")]
+position = Vector2(-140, -320)
+size = Vector2(140, 40)
+
+[node name="ArchiveNorthRight" parent="Walls" instance=ExtResource("3_wall")]
+position = Vector2(140, -320)
+size = Vector2(140, 40)
+
+[node name="VaultFlankWest" parent="Walls" instance=ExtResource("3_wall")]
+position = Vector2(-190, -440)
+size = Vector2(40, 200)
+
+[node name="VaultFlankEast" parent="Walls" instance=ExtResource("3_wall")]
+position = Vector2(190, -440)
+size = Vector2(40, 200)
+
+[node name="HidingSpots" type="Node2D" parent="."]
+
+[node name="WardrobeAtriumWest" parent="HidingSpots" instance=ExtResource("13_hiding")]
+position = Vector2(-420, 280)
+
+[node name="WardrobeOfficeEast" parent="HidingSpots" instance=ExtResource("13_hiding")]
+position = Vector2(420, 280)
+
+[node name="WardrobeVault" parent="HidingSpots" instance=ExtResource("13_hiding")]
+position = Vector2(-250, -400)
+
+[node name="Lasers" type="Node2D" parent="."]
+
+[node name="LaserWestWing" parent="Lasers" instance=ExtResource("14_laser")]
+position = Vector2(-440, 80)
+target_offset = Vector2(180, 0)
+cycle_timed = true
+on_duration = 2.4
+off_duration = 1.6
+
+[node name="LaserEastWing" parent="Lasers" instance=ExtResource("14_laser")]
+position = Vector2(260, 80)
+target_offset = Vector2(180, 0)
+cycle_timed = true
+on_duration = 2.4
+off_duration = 1.6
+start_delay = 1.0
+
+[node name="LaserVaultGate" parent="Lasers" instance=ExtResource("14_laser")]
+position = Vector2(-70, -320)
+target_offset = Vector2(140, 0)
+cycle_timed = true
+on_duration = 2.8
+off_duration = 1.4
+
+[node name="Artifact" parent="." instance=ExtResource("7_artifact")]
+position = Vector2(0, -460)
+
+[node name="EscapeZone" parent="." instance=ExtResource("8_escape")]
+position = Vector2(0, 490)
+
+[node name="Guards" type="Node2D" parent="."]
+
+[node name="GuardAtrium" parent="Guards" instance=ExtResource("9_guard")]
+position = Vector2(-150, 40)
+waypoints = [Vector2(-150, 40), Vector2(150, 40)]
+patrol_speed = 65.0
+
+[node name="GuardWestChamber" parent="Guards" instance=ExtResource("9_guard")]
+position = Vector2(-360, 320)
+waypoints = [Vector2(-360, 320), Vector2(-360, -100)]
+patrol_speed = 68.0
+
+[node name="GuardVaultPatrol" parent="Guards" instance=ExtResource("9_guard")]
+position = Vector2(0, -220)
+waypoints = [Vector2(-120, -220), Vector2(120, -220)]
+wait_at_waypoint = 1.6
+
+[node name="Player" parent="." instance=ExtResource("10_player")]
+position = Vector2(0, 400)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(1.15, 1.15)
+limit_left = -850
+limit_top = -680
+limit_right = 850
+limit_bottom = 680
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+ignore_rotation = true
+
+[node name="HUD" parent="." instance=ExtResource("11_hud")]
+
+[node name="VirtualJoystick" parent="HUD" instance=ExtResource("12_vjoy")]

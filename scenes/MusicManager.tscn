@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://musicmgr001"]
+
+[ext_resource type="Script" path="res://scripts/MusicManager.gd" id="1_script"]
+[ext_resource type="AudioStream" path="res://assets/audio/thunder.wav" id="2_thunder"]
+
+[node name="MusicManager" type="Node"]
+script = ExtResource("1_script")
+
+[node name="TrackStealth" type="AudioStreamPlayer" parent="."]
+volume_db = -4.0
+
+[node name="TrackTension" type="AudioStreamPlayer" parent="."]
+volume_db = -80.0
+
+[node name="TrackChase" type="AudioStreamPlayer" parent="."]
+volume_db = -80.0
+
+[node name="AudioThunder" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_thunder")
+volume_db = 0.0

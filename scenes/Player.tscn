@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://player0001"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/player.png" id="2_sprite"]
+[ext_resource type="Texture2D" path="res://assets/light_circle.png" id="3_light"]
+[ext_resource type="AudioStream" path="res://assets/audio/footstep.wav" id="4_footstep"]
+[ext_resource type="AudioStream" path="res://assets/audio/throw.wav" id="5_throw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 18.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1")
+
+[node name="PersonalLight" type="PointLight2D" parent="."]
+color = Color(0.35, 0.92, 0.8, 1)
+energy = 1.25
+shadow_filter = 1
+shadow_filter_smooth = 2.0
+texture = ExtResource("3_light")
+texture_scale = 2.6
+
+[node name="AudioFootstep" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_footstep")
+volume_db = -4.0
+
+[node name="AudioThrow" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_throw")
+volume_db = -2.0

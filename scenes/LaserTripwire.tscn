@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://laser00001"]
+
+[ext_resource type="Script" path="res://scripts/LaserTripwire.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/laser_emitter.png" id="2_emitter"]
+[ext_resource type="AudioStream" path="res://assets/audio/alarm_siren.wav" id="3_alarm"]
+[ext_resource type="AudioStream" path="res://assets/audio/spark_disable.wav" id="4_spark"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_1"]
+b = Vector2(0, 160)
+
+[node name="LaserTripwire" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="BeamGlow" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 160)
+width = 8.0
+default_color = Color(1, 0.15, 0.18, 0.38)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="BeamCore" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 160)
+width = 3.0
+default_color = Color(1, 0.45, 0.45, 0.95)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="EmitterA" type="Sprite2D" parent="."]
+texture = ExtResource("2_emitter")
+
+[node name="EmitterB" type="Sprite2D" parent="."]
+position = Vector2(0, 160)
+texture = ExtResource("2_emitter")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("SegmentShape2D_1")
+
+[node name="AudioAlarm" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_alarm")
+volume_db = 4.0
+
+[node name="AudioSpark" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_spark")
+volume_db = 3.0
+
+[node name="DisabledLabel" type="Label" parent="."]
+visible = false
+offset_left = -35.0
+offset_top = 70.0
+offset_right = 35.0
+offset_bottom = 86.0
+theme_override_colors/font_color = Color(1, 0.5, 0.2, 1)
+theme_override_font_sizes/font_size = 10
+text = "OFFLINE"
+horizontal_alignment = 1
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,574 @@
+[gd_scene load_steps=10 format=3 uid="uid://hud00001"]
+
+[ext_resource type="Script" path="res://scripts/HUD.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/pebble.png" id="2_pebble"]
+[ext_resource type="Texture2D" path="res://assets/decoy.png" id="3_decoy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_top"]
+font_size = 18
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_diff"]
+font_size = 16
+font_color = Color(1, 0.8, 0.2, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 32
+font_color = Color(1, 0.3, 0.3, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_victory"]
+font_size = 32
+font_color = Color(0.3, 1, 0.5, 1)
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_GameOver"]
+bg_color = Color(0.08, 0.04, 0.05, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.95, 0.25, 0.25, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+shadow_color = Color(0.9, 0.1, 0.1, 0.35)
+shadow_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_Victory"]
+bg_color = Color(0.04, 0.08, 0.06, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.25, 0.95, 0.5, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+shadow_color = Color(0.1, 0.8, 0.35, 0.35)
+shadow_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_NoiseMeter"]
+bg_color = Color(0.02, 0.05, 0.08, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.5, 0.7, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_NoiseTrough"]
+bg_color = Color(0.05, 0.09, 0.13, 0.95)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_left = 4
+corner_radius_bottom_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_NoiseFill"]
+bg_color = Color(0.25, 0.95, 0.65, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_left = 4
+corner_radius_bottom_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_CreepNormal"]
+bg_color = Color(0.06, 0.1, 0.14, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.45, 0.6, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_CreepActive"]
+bg_color = Color(0.08, 0.22, 0.25, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.95, 0.85, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
+shadow_color = Color(0.2, 0.9, 0.8, 0.4)
+shadow_size = 8
+
+[node name="HUD" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_script")
+
+[node name="TopBar" type="HBoxContainer" parent="."]
+mouse_filter = 2
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 14.0
+offset_right = -20.0
+offset_bottom = 54.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+
+[node name="PebbleContainer" type="HBoxContainer" parent="TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PebbleIcon" type="TextureRect" parent="TopBar/PebbleContainer"]
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+texture = ExtResource("2_pebble")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PebbleLabel" type="Label" parent="TopBar/PebbleContainer"]
+layout_mode = 2
+text = "Pebbles: 5"
+label_settings = SubResource("LabelSettings_top")
+
+[node name="DecoyContainer" type="HBoxContainer" parent="TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="DecoyIcon" type="TextureRect" parent="TopBar/DecoyContainer"]
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+texture = ExtResource("3_decoy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DecoyLabel" type="Label" parent="TopBar/DecoyContainer"]
+layout_mode = 2
+text = "Decoys: 0"
+label_settings = SubResource("LabelSettings_top")
+
+[node name="DifficultyBadge" type="Label" parent="TopBar"]
+layout_mode = 2
+text = "[ROOKIE]"
+label_settings = SubResource("LabelSettings_diff")
+
+[node name="Spacer" type="Control" parent="TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ObjectiveLabel" type="Label" parent="TopBar"]
+layout_mode = 2
+text = "OBJECTIVE: INFILTRATE & STEAL THE GEM"
+label_settings = SubResource("LabelSettings_top")
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CashLabel" type="Label" parent="TopBar"]
+layout_mode = 2
+text = "$2500"
+label_settings = SubResource("LabelSettings_top")
+
+[node name="PauseButton" type="Button" parent="TopBar"]
+custom_minimum_size = Vector2(70, 32)
+layout_mode = 2
+focus_mode = 0
+text = "PAUSE"
+
+[node name="NoiseMeter" type="Panel" parent="."]
+mouse_filter = 2
+custom_minimum_size = Vector2(340, 28)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -170.0
+offset_top = 58.0
+offset_right = 170.0
+offset_bottom = 86.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBox_NoiseMeter")
+
+[node name="HBox" type="HBoxContainer" parent="NoiseMeter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="IconLabel" type="Label" parent="NoiseMeter/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 0.95)
+theme_override_font_sizes/font_size = 11
+text = "🔊 NOISE:"
+
+[node name="BarContainer" type="Control" parent="NoiseMeter/HBox"]
+custom_minimum_size = Vector2(130, 12)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="NoiseBar" type="ProgressBar" parent="NoiseMeter/HBox/BarContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBox_NoiseTrough")
+theme_override_styles/fill = SubResource("StyleBox_NoiseFill")
+step = 0.5
+value = 15.0
+show_percentage = false
+
+[node name="ThresholdMark" type="ColorRect" parent="NoiseMeter/HBox/BarContainer"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 84.0
+offset_right = 86.0
+grow_vertical = 2
+color = Color(1, 0.25, 0.25, 0.9)
+
+[node name="DbLabel" type="Label" parent="NoiseMeter/HBox"]
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "15 dB"
+horizontal_alignment = 2
+
+[node name="StatusBadge" type="Label" parent="NoiseMeter/HBox"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.95, 0.65, 1)
+theme_override_font_sizes/font_size = 11
+text = "[STEALTH]"
+
+[node name="TutorialHint" type="Label" parent="."]
+mouse_filter = 2
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -45.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "[ WASD / Arrows / Joystick: Move | Click Screen or Button: Throw Sonar Pebble ]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MobileActions" type="HBoxContainer" parent="."]
+mouse_filter = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -565.0
+offset_top = -115.0
+offset_right = -20.0
+offset_bottom = -45.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="MobileHideButton" type="Button" parent="MobileActions"]
+visible = false
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+focus_mode = 0
+action_mode = 0
+theme_override_font_sizes/font_size = 13
+text = "🚪 HIDE
+[F Key]"
+
+[node name="MobileCreepButton" type="Button" parent="MobileActions"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+focus_mode = 0
+action_mode = 0
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBox_CreepNormal")
+text = "👟 SNEAK [OFF]
+[Shift/C]"
+
+[node name="MobileDecoyButton" type="Button" parent="MobileActions"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+focus_mode = 0
+action_mode = 0
+theme_override_font_sizes/font_size = 13
+text = "THROW DECOY
+[E Key]"
+
+[node name="MobileThrowButton" type="Button" parent="MobileActions"]
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+focus_mode = 0
+action_mode = 0
+theme_override_font_sizes/font_size = 13
+text = "THROW PEBBLE
+[Click Target]"
+
+[node name="Dimmer" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="PausePanel" type="Panel" parent="."]
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -140.0
+offset_right = 180.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="PausePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Title" type="Label" parent="PausePanel/VBox"]
+layout_mode = 2
+text = "HEIST PAUSED"
+label_settings = SubResource("LabelSettings_top")
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PausePanel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+focus_mode = 0
+text = "RESUME"
+
+[node name="RestartButton" type="Button" parent="PausePanel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+focus_mode = 0
+text = "RESTART HEIST"
+
+[node name="MenuButton" type="Button" parent="PausePanel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+focus_mode = 0
+text = "MAIN MENU"
+
+[node name="GameOverPanel" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -155.0
+offset_right = 250.0
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_GameOver")
+
+[node name="VBox" type="VBoxContainer" parent="GameOverPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 22.0
+offset_right = -28.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Title" type="Label" parent="GameOverPanel/VBox"]
+layout_mode = 2
+text = "BUSTED! HEIST FAILED"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="Sub" type="Label" parent="GameOverPanel/VBox"]
+layout_mode = 2
+text = "The guards intercepted you and raised the alarm!"
+horizontal_alignment = 1
+
+[node name="RetryButton" type="Button" parent="GameOverPanel/VBox"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+focus_mode = 0
+text = "↺   RETRY HEIST"
+
+[node name="GameOverMenuButton" type="Button" parent="GameOverPanel/VBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 0
+text = "⌂   RETURN TO MAIN MENU"
+
+[node name="VictoryPanel" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -175.0
+offset_right = 260.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_Victory")
+
+[node name="VBox" type="VBoxContainer" parent="VictoryPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 20.0
+offset_right = -28.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Title" type="Label" parent="VictoryPanel/VBox"]
+layout_mode = 2
+text = "HEIST SUCCESSFUL!"
+label_settings = SubResource("LabelSettings_victory")
+horizontal_alignment = 1
+
+[node name="RewardLabel" type="Label" parent="VictoryPanel/VBox"]
+layout_mode = 2
+text = "Heist Loot: +$2,000"
+horizontal_alignment = 1
+
+[node name="NextLevelButton" type="Button" parent="VictoryPanel/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+text = "NEXT MANSION ➔"
+
+[node name="HideoutButton" type="Button" parent="VictoryPanel/VBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 0
+text = "VISIT HIDEOUT (UPGRADES)"
+
+[node name="VictoryMenuButton" type="Button" parent="VictoryPanel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+focus_mode = 0
+text = "MAIN MENU"
+layout_mode = 2
+focus_mode = 0
+text = "MAIN MENU"
+
+[node name="HideoutPanel" type="Panel" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -215.0
+offset_right = 290.0
+offset_bottom = 215.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="HideoutPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 18.0
+offset_right = -24.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="HideoutPanel/VBox"]
+layout_mode = 2
+text = "BLACK MARKET HIDEOUT"
+label_settings = SubResource("LabelSettings_top")
+horizontal_alignment = 1
+
+[node name="BuyShoesButton" type="Button" parent="HideoutPanel/VBox"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+focus_mode = 0
+text = "Rubber-Soled Shoes ($1000) - 40% Quieter"
+
+[node name="BuyGogglesButton" type="Button" parent="HideoutPanel/VBox"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+focus_mode = 0
+text = "Echo-Goggles ($1500) - Echoes Last +1.5s"
+
+[node name="BuyDecoyButton" type="Button" parent="HideoutPanel/VBox"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+focus_mode = 0
+text = "Wind-up Decoy Tool ($2000) - Lures Guards"
+
+[node name="CloseHideout" type="Button" parent="HideoutPanel/VBox"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+focus_mode = 0
+text = "START HEIST"
+
+[connection signal="pressed" from="TopBar/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="MobileActions/MobileHideButton" to="." method="_on_mobile_hide_button_pressed"]
+[connection signal="pressed" from="MobileActions/MobileThrowButton" to="." method="_on_mobile_throw_button_pressed"]
+[connection signal="pressed" from="MobileActions/MobileDecoyButton" to="." method="_on_mobile_decoy_button_pressed"]
+[connection signal="pressed" from="MobileActions/MobileCreepButton" to="." method="_on_mobile_creep_button_pressed"]
+[connection signal="pressed" from="PausePanel/VBox/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PausePanel/VBox/RestartButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="PausePanel/VBox/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="GameOverPanel/VBox/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="GameOverPanel/VBox/GameOverMenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="VictoryPanel/VBox/NextLevelButton" to="." method="_on_next_level_button_pressed"]
+[connection signal="pressed" from="VictoryPanel/VBox/HideoutButton" to="." method="_on_hideout_button_pressed"]
+[connection signal="pressed" from="VictoryPanel/VBox/VictoryMenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="HideoutPanel/VBox/BuyShoesButton" to="." method="_on_buy_shoes_pressed"]
+[connection signal="pressed" from="HideoutPanel/VBox/BuyGogglesButton" to="." method="_on_buy_goggles_pressed"]
+[connection signal="pressed" from="HideoutPanel/VBox/BuyDecoyButton" to="." method="_on_buy_decoy_pressed"]
+[connection signal="pressed" from="HideoutPanel/VBox/CloseHideout" to="." method="_on_close_hideout_pressed"]
